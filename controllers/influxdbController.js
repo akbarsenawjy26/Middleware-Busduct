@@ -12,18 +12,20 @@ async function getPhase1Data(req, res) {
         .json({ error: `No data found for slave ID ${slaveId}` });
     }
 
-    const phase1Data = {
-      voltageLN: data[0]._value,
-      voltageLL: data[1]._value,
-      current: data[2]._value,
-      cosPhi: data[3]._value,
-      pf: data[4]._value,
-      activePower: data[5]._value,
-      reactivePower: data[6]._value,
-      apparentPower: data[7]._value,
-      thdv: data[8]._value,
-      thdi: data[9]._value,
-    };
+    // Assuming data returned is sorted and limited to the last 10 entries
+    const phase1Data = data.map((row) => ({
+      time: row._time,
+      voltageLN: row.voltageLN,
+      voltageLL: row.voltageLL,
+      current: row.current,
+      cosPhi: row.cosPhi,
+      pf: row.pf,
+      activePower: row.activePower,
+      reactivePower: row.reactivePower,
+      apparentPower: row.apparentPower,
+      thdv: row.thdv,
+      thdi: row.thdi,
+    }));
 
     res.json(phase1Data);
   } catch (err) {
@@ -46,18 +48,19 @@ async function getPhase2Data(req, res) {
         .json({ error: `No data found for slave ID ${slaveId}` });
     }
 
-    const phase2Data = {
-      voltageLN: data[10]._value,
-      voltageLL: data[11]._value,
-      current: data[12]._value,
-      cosPhi: data[13]._value,
-      pf: data[14]._value,
-      activePower: data[15]._value,
-      reactivePower: data[16]._value,
-      apparentPower: data[17]._value,
-      thdv: data[18]._value,
-      thdi: data[19]._value,
-    };
+    const phase2Data = data.map((row) => ({
+      time: row._time,
+      voltageLN: row.voltageLN,
+      voltageLL: row.voltageLL,
+      current: row.current,
+      cosPhi: row.cosPhi,
+      pf: row.pf,
+      activePower: row.activePower,
+      reactivePower: row.reactivePower,
+      apparentPower: row.apparentPower,
+      thdv: row.thdv,
+      thdi: row.thdi,
+    }));
 
     res.json(phase2Data);
   } catch (err) {
@@ -80,18 +83,19 @@ async function getPhase3Data(req, res) {
         .json({ error: `No data found for slave ID ${slaveId}` });
     }
 
-    const phase3Data = {
-      voltageLN: data[20]._value,
-      voltageLL: data[21]._value,
-      current: data[22]._value,
-      cosPhi: data[23]._value,
-      pf: data[24]._value,
-      activePower: data[25]._value,
-      reactivePower: data[26]._value,
-      apparentPower: data[27]._value,
-      thdv: data[28]._value,
-      thdi: data[29]._value,
-    };
+    const phase3Data = data.map((row) => ({
+      time: row._time,
+      voltageLN: row.voltageLN,
+      voltageLL: row.voltageLL,
+      current: row.current,
+      cosPhi: row.cosPhi,
+      pf: row.pf,
+      activePower: row.activePower,
+      reactivePower: row.reactivePower,
+      apparentPower: row.apparentPower,
+      thdv: row.thdv,
+      thdi: row.thdi,
+    }));
 
     res.json(phase3Data);
   } catch (err) {
@@ -114,15 +118,16 @@ async function getCommonData(req, res) {
         .json({ error: `No data found for slave ID ${slaveId}` });
     }
 
-    const commonData = {
-      totalCurrent: data[30]._value,
-      totalPF: data[31]._value,
-      totalActivePower: data[32]._value,
-      totalReactivePower: data[33]._value,
-      totalApparentPower: data[34]._value,
-      totalFreq: data[35]._value, // Adjusted index to 35 for totalFreq
-      NeutralCurrent: data[36]._value, // Adjusted index to 36 for NeutralCurrent
-    };
+    const commonData = data.map((row) => ({
+      time: row._time,
+      totalCurrent: row._value,
+      totalPF: row._value,
+      totalActivePower: row._value,
+      totalReactivePower: row._value,
+      totalApparentPower: row._value,
+      totalFreq: row._value,
+      NeutralCurrent: row._value,
+    }));
 
     res.json(commonData);
   } catch (err) {
