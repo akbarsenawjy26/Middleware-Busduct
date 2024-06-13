@@ -15,16 +15,16 @@ async function getPhase1Data(req, res) {
     // Assuming data returned is sorted and limited to the last 10 entries
     const phase1Data = data.map((row) => ({
       time: row._time,
-      voltageLN: row.voltageLN,
-      voltageLL: row.voltageLL,
-      current: row.current,
-      cosPhi: row.cosPhi,
-      pf: row.pf,
-      activePower: row.activePower,
-      reactivePower: row.reactivePower,
-      apparentPower: row.apparentPower,
-      thdv: row.thdv,
-      thdi: row.thdi,
+      voltageLN: row._value,
+      voltageLL: row._value,
+      current: row._value,
+      cosPhi: row._value,
+      pf: row._value,
+      activePower: row._value,
+      reactivePower: row._value,
+      apparentPower: row._value,
+      thdv: row._value,
+      thdi: row._value,
     }));
 
     res.json(phase1Data);
@@ -50,16 +50,16 @@ async function getPhase2Data(req, res) {
 
     const phase2Data = data.map((row) => ({
       time: row._time,
-      voltageLN: row.voltageLN,
-      voltageLL: row.voltageLL,
-      current: row.current,
-      cosPhi: row.cosPhi,
-      pf: row.pf,
-      activePower: row.activePower,
-      reactivePower: row.reactivePower,
-      apparentPower: row.apparentPower,
-      thdv: row.thdv,
-      thdi: row.thdi,
+      voltageLN: row._value,
+      voltageLL: row._value,
+      current: row._value,
+      cosPhi: row._value,
+      pf: row._value,
+      activePower: row._value,
+      reactivePower: row._value,
+      apparentPower: row._value,
+      thdv: row._value,
+      thdi: row._value,
     }));
 
     res.json(phase2Data);
@@ -85,16 +85,16 @@ async function getPhase3Data(req, res) {
 
     const phase3Data = data.map((row) => ({
       time: row._time,
-      voltageLN: row.voltageLN,
-      voltageLL: row.voltageLL,
-      current: row.current,
-      cosPhi: row.cosPhi,
-      pf: row.pf,
-      activePower: row.activePower,
-      reactivePower: row.reactivePower,
-      apparentPower: row.apparentPower,
-      thdv: row.thdv,
-      thdi: row.thdi,
+      voltageLN: row._value,
+      voltageLL: row._value,
+      current: row._value,
+      cosPhi: row._value,
+      pf: row._value,
+      activePower: row._value,
+      reactivePower: row._value,
+      apparentPower: row._value,
+      thdv: row._value,
+      thdi: row._value,
     }));
 
     res.json(phase3Data);
