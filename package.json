@@ -10,7 +10,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@influxdata/influxdb-client": "^1.33.2",
     "express": "^4.19.2",
-    "modbus-serial": "^8.0.17"
+    "influx": "^5.9.3",
+    "modbus-serial": "^8.0.17",
+    "node-cache": "^5.1.2"
   }
 }
