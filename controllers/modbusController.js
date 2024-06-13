@@ -16,10 +16,9 @@ function convertRegistersToFloat(highRegister, lowRegister) {
 
 const fetchData = async (slave) => {
   const modbus = new ModbusModel(slave.ip);
-
   try {
     const data = await modbus.readRegisters(0, 80, slave.id); // Adjusted the number of registers to 80
-
+    console.log(slave.id, " : ", data);
     const result = {
       phase1: {
         voltageLN: convertRegistersToFloat(data[0], data[1]),
@@ -74,14 +73,19 @@ const fetchData = async (slave) => {
   }
 };
 
-const startPolling = () => {
-  slaves.forEach((slave) => {
-    // Gunakan IIFE (Immediately Invoked Function Expression) untuk menciptakan konteks yang terpisah
-    (function (slave) {
-      fetchData(slave); // Initial fetch
-      setInterval(() => fetchData(slave), 3000); // Fetch every 5 seconds
-    })(slave);
-  });
+const startPolling = async (slavery) => {
+  try {
+    for (let slave of slavery) {
+      fetchData(slave);
+      await sleep(1000);
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setImmediate(() => {
+      startPolling(slaves);
+    });
+  }
 };
 
 const modbusController = {
@@ -100,6 +104,7 @@ const modbusController = {
   },
 };
 
-startPolling(); // Start polling when the server starts
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+startPolling(slaves);
 
 module.exports = modbusController;
