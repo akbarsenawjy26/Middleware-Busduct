@@ -29,7 +29,7 @@ class ModbusModel {
       return data.data;
     } catch (error) {
       console.log(slaveId, error);
-      return Array(77).fill(0);
+      return Array(77).fill(2);
     }
   }
 }
