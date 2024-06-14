@@ -27,15 +27,23 @@ function convertRegistersToFloat(highRegister, lowRegister) {
   return buffer.readFloatBE(0);
 }
 
+function convertRegistersToInt32(highRegister, lowRegister) {
+  const combinedRegisters = (highRegister << 16) | (lowRegister & 0xffff);
+  const buffer = Buffer.alloc(4);
+  buffer.writeInt32BE(combinedRegisters, 0);
+  return buffer.readInt32BE(0);
+}
+
 const fetchData = async (slave) => {
   const modbus = new ModbusModel(slave.ip);
   try {
-    const data = await modbus.readRegisters(0, 80, slave.id); // Adjusted the number of registers to 80
+    const data = await modbus.readRegisters(0, 80, slave.id);
+    const data1 = await modbus.readRegisters(470, 2, slave.id);
     console.log(slave.id, " : ", data);
+    console.log(slave.id, " : ", data1);
 
     //INFLUX SAVE
     const points = [];
-
     // Phase 1
     const phase1Point = new Point("modbus_data")
       .tag("phase", "phase1")
@@ -162,6 +170,9 @@ const fetchData = async (slave) => {
         totalApparentPower: convertRegistersToFloat(data[68], data[69]),
         totalFreq: convertRegistersToFloat(data[74], data[75]),
         NeutralCurrent: convertRegistersToFloat(data[76], data[77]),
+      },
+      kWh: {
+        totalkWhImportT1: convertRegistersToFloat(data1[470], data1[471]),
       },
     };
 
