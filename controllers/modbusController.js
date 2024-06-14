@@ -10,7 +10,7 @@ const client = new InfluxDB({ url, token });
 const writeApi = client.getWriteApi("WIT.SBY", "BusDuct");
 
 const slaves = [
-  { id: 58, ip: "192.168.17.111" },
+  { id: 59, ip: "192.168.17.111" },
   { id: 59, ip: "192.168.17.111" },
   { id: 60, ip: "192.168.17.111" },
   { id: 61, ip: "192.168.17.111" },
@@ -172,7 +172,7 @@ const fetchData = async (slave) => {
         NeutralCurrent: convertRegistersToFloat(data[76], data[77]),
       },
       kWh: {
-        totalkWhImportT1: convertRegistersToFloat(data1[470], data1[471]),
+        totalkVarHImportT1: convertRegistersToInt32(data1[0], data1[1]),
       },
     };
 
