@@ -12,7 +12,6 @@ async function fetchModbusData(slaveId) {
   const query = `from(bucket: "BusDuct")
     |> range(start: -1h)
     |> filter(fn: (r) => r._measurement == "modbus_data" and r.slaveId == "${slaveId}")
-    |> sort(columns: ["_time"], desc: true)
     |> limit(n: 5)`;
 
   try {
